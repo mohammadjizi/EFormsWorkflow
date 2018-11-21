@@ -2,18 +2,23 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Workflow.Data.Infrastructure;
+using Workflow.Models;
 using Workflow.Service;
 
 namespace WorkflowForms.Controllers
 {
     public class ApplicationCustomerController : Controller
     {
-        private readonly IEquationCustomerService equationCustomerService;
+        private readonly IEquationCustomerService _equationCustomerService;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ApplicationCustomerController(IEquationCustomerService equationCustomerService, IMapper mapper)
+
+        public ApplicationCustomerController(IEquationCustomerService equationCustomerService, IUnitOfWork unitOfWork,IMapper mapper)
         {
-            this.equationCustomerService = equationCustomerService;
+            _equationCustomerService = equationCustomerService;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -63,27 +68,26 @@ namespace WorkflowForms.Controllers
         [Authorize]
         public async Task<IActionResult> Search(string accNumber)
         {
-            //var appCustomer = new ApplicationCustomer()
-            //{
-            //    AccountNumber = accNumber
-            //};
+            var appCustomer = new ApplicationCustomer()
+            {
+                AccountNumber = accNumber
+            };
 
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return PartialView("ApplicationCustomer/Create", appCustomer);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return PartialView("ApplicationCustomer/Create", appCustomer);
+            }
 
-            //var cust = await _unitOfWork.Customers.SearchCustomer(accNumber);
-            //if (cust == null)
-            //{
-            //    return NotFound();
-            //}
+            var cust = await _equationCustomerService.SearchCustomer(accNumber);
+            if (cust == null)
+            {
+                return NotFound();
+            }
 
-            //var appCust = _mapper.Map<ApplicationCustomer>(cust);
+            var appCust = _mapper.Map<ApplicationCustomer>(cust);
 
-            //return PartialView("ApplicationCustomer/Create", appCust);
-            return PartialView();
+            return PartialView("ApplicationCustomer/Create", appCust);
         }
 
         //// POST: ApplicationCustomer/Create

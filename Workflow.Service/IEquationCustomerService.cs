@@ -1,6 +1,10 @@
-﻿namespace Workflow.Service
+﻿using System.Threading.Tasks;
+using Workflow.Models;
+
+namespace Workflow.Service
 {
-    public  class IEquationCustomerService
+    public interface IEquationCustomerService
     {
+       Task< EquationCustomer> SearchCustomer(string accountNumber);
     }
 }

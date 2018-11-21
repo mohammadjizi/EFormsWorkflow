@@ -7,10 +7,5 @@ namespace Workflow.Data.Repositories
     {
         public ApplicationDetailRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
-
-        //public string GetAppNumber()
-        //{
-        //    return (DateTime.Now.ToString("yy") + Convert.ToString((_context.ApplicationDetail.Max(c => c.Id) + 1)));
-        //}
     }
 }

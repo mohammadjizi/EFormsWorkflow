@@ -48,8 +48,11 @@ namespace WorkflowForms
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAutoMapper();
+            //services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            Workflow.Web.Mappings.AutoMapperConfiguration.Configure();
 
             //var builder = new ContainerBuilder();
 

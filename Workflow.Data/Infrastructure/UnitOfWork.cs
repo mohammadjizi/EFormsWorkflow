@@ -1,4 +1,6 @@
-﻿namespace Workflow.Data.Infrastructure
+﻿using System.Threading.Tasks;
+
+namespace Workflow.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -15,9 +17,9 @@
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }
 
-        public void Commit()
+        public Task<int> Commit()
         {
-          dbContext.Commit();
+         return dbContext.Commit();
         }
 
         

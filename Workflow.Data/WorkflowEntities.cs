@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using Workflow.Data.Configuration;
 using Workflow.Models;
 
@@ -14,9 +15,9 @@ namespace Workflow.Data
         public DbSet<ApplicationDetail> ApplicationDetail { get; set; }
         public DbSet<ApplicationDescription> ApplicationDescription { get; set; }
 
-        public virtual void Commit()
+        public virtual Task<int> Commit()
         {
-            base.SaveChanges();
+          return  base.SaveChangesAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

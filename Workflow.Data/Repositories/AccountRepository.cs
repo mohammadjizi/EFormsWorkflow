@@ -8,15 +8,5 @@ namespace Workflow.Data.Repositories
     {
         public AccountRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
-
-        //public void CreateAccount(Account account)
-        //{
-        //    _context.Add(account);
-        //}
-
-        //public int GetAppNumber()
-        //{
-        //    return _context.Account.Max(c => c.Id);
-        //}
     }
 }

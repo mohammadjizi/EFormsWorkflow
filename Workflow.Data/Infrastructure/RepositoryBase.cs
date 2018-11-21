@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Workflow.Data.Infrastructure
 {
@@ -56,26 +57,30 @@ namespace Workflow.Data.Infrastructure
                 dbSet.Remove(obj);
         }
 
-        public virtual T GetById(int id)
+        public virtual Task<T> GetById(int id)
         {
-            return dbSet.Find(id);
+            return dbSet.FindAsync(id);
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual Task<List<T>> GetAll()
         {
-            return dbSet.ToList();
+            return dbSet.ToListAsync();
         }
 
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        public virtual Task<List<T>> GetMany(Expression<Func<T, bool>> where)
         {
-            return dbSet.Where(where).ToList();
+            return dbSet.Where(where).ToListAsync();
         }
 
-        public T Get(Expression<Func<T, bool>> where)
+        public Task<T> Get(Expression<Func<T, bool>> where)
         {
-            return dbSet.Where(where).FirstOrDefault<T>();
+            return dbSet.Where(where).FirstOrDefaultAsync<T>();
         }
 
+        public int Max(Expression<Func<T, int>> where)
+        {
+          return  dbSet.Max(where);
+        }
         #endregion
 
     }

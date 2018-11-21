@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Workflow.Data.Infrastructure
 {
@@ -14,12 +15,14 @@ namespace Workflow.Data.Infrastructure
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
         // Get an entity by int id
-        T GetById(int id);
+        Task<T> GetById(int id);
         // Get an entity using delegate
-        T Get(Expression<Func<T, bool>> where);
+        Task<T> Get(Expression<Func<T, bool>> where);
         // Gets all entities of type T
-        IEnumerable<T> GetAll();
+        Task<List<T>> GetAll();
         // Gets entities using delegate
-        IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
+        Task<List<T>> GetMany(Expression<Func<T, bool>> where);
+
+        int Max(Expression<Func<T, int>> where);
     }
 }

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using Workflow.Data.Infrastructure;
+using Workflow.Models;
 using Workflow.Service;
 using Workflow.Web.ViewModels;
 
@@ -9,17 +12,33 @@ namespace WorkflowForms.Controllers
 {
     public class AccountMaintenanceController : Controller
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
-        public IMapper _mapper { get; }
+        private readonly IMapper _mapper;
 
-        public AccountMaintenanceController(IAccountService accountService, IMapper mapper)
+        private readonly IApplicationDescriptionService _applicationDescriptionService;
+
+        private readonly IApplicationDetailService _applicationDetailService;
+
+        private readonly IEquationCustomerService _equationCustomerService;
+
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AccountMaintenanceController(IAccountService accountService,
+            IApplicationDescriptionService applicationDescriptionService,
+            IApplicationDetailService applicationDetailService,
+            IEquationCustomerService equationCustomerService, 
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
-            this.accountService = accountService;
+            _accountService = accountService;
+            _applicationDescriptionService = applicationDescriptionService;
+            _applicationDetailService = applicationDetailService;
+            _equationCustomerService = equationCustomerService;
             _mapper = mapper;
         }
 
-       
+
 
         //// GET: Accounts
         //public async Task<IActionResult> Index()
@@ -51,9 +70,9 @@ namespace WorkflowForms.Controllers
         {       
             var accMaintenance = new AccountMaintenanceViewModel()
             {
-                    //AppType = _unitOfWork.AppsDescription.GetAppDescription("ACM").AppType,              
-                    //DateCreated = DateTime.Now,
-                    //RequestedBy = "PQA4259"
+                    AppType =  _applicationDescriptionService.GetAppDescription("ACM").Result.AppType,              
+                    DateCreated = DateTime.Now,
+                    RequestedBy = "PQA4259"
                 
             };
             return View(accMaintenance);
@@ -68,27 +87,27 @@ namespace WorkflowForms.Controllers
             [Bind("AppType,DateCreated,RequestedBy,CustomerAccount,CustomerAddress,CustomerType")]
             AccountMaintenanceViewModel accountMaintenance)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var account = _mapper.Map<Account>(accountMaintenance);
-            //    account.AppDetail = new ApplicationDetail()
-            //    {
-            //        AppDescription = _unitOfWork.AppsDescription.GetAppDescription("ACM"),
-            //        DateCreated = DateTime.Now,
-            //        RequestedBy = "PQA4259",
-            //        AppNumber = "ACM" + _unitOfWork.AppsDetail.GetAppNumber()
-            //    };
-            //    var cust = await _unitOfWork.Customers.SearchCustomer(accountMaintenance.CustomerAccount);
-            //    account.AppCustomer = _mapper.Map<ApplicationCustomer>(cust);
+            if (ModelState.IsValid)
+            {
+                var account = _mapper.Map<Account>(accountMaintenance);
+                account.AppDetail = new ApplicationDetail()
+                {
+                    AppDescription = await _applicationDescriptionService.GetAppDescription("ACM"),
+                    DateCreated = DateTime.Now,
+                    RequestedBy = "PQA4259",
+                    AppNumber = "ACM" + _applicationDetailService.GetAppNumber()
+                };
+                var cust = await _equationCustomerService.SearchCustomer(accountMaintenance.CustomerAccount);
+                account.AppCustomer = _mapper.Map<ApplicationCustomer>(cust);
 
-            //    _unitOfWork.Accounts.CreateAccount(account);
-            //    await _unitOfWork.Complete();
+                _accountService.CreateAccount(account);
+                await _unitOfWork.Commit();
 
-            //    //WorkflowGenerator wfGenerator= new WorkflowGenerator();
-            //    //wfGenerator.CreateAccountMaintenance(new Version(1, 0, 0, 0));
+                //WorkflowGenerator wfGenerator= new WorkflowGenerator();
+                //wfGenerator.CreateAccountMaintenance(new Version(1, 0, 0, 0));
 
-            //    return RedirectToAction("Index", "Home");
-            //}
+                return RedirectToAction("Index", "Home");
+            }
 
             return View(accountMaintenance);
         }

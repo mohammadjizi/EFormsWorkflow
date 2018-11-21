@@ -10,7 +10,6 @@
     <Compile Remove="AspNetCoreExtensions.cs" />
     <Compile Remove="DelegatingControllerActivator.cs" />
     <Compile Remove="DelegatingViewComponentActivator.cs" />
-    <Compile Remove="Mappings\AutoMapperConfiguration.cs" />
     <Compile Remove="RequestScopingStartupFilter.cs" />
   </ItemGroup>
 

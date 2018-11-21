@@ -7,12 +7,5 @@ namespace Workflow.Data.Repositories
     {
         public EquationCustomerRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
-
-        //public async Task<EquationCustomer> SearchCustomer(string accountNumber)
-        //{
-        //    return await _context.EquationCustomer.FirstOrDefaultAsync(m => m.AccountNumber == accountNumber);
-
-        //}
-
     }
 }

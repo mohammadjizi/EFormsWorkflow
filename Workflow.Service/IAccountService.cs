@@ -1,6 +1,11 @@
-﻿namespace Workflow.Service
+﻿using Workflow.Models;
+
+namespace Workflow.Service
 {
-    public class IAccountService
+    public interface IAccountService
     {
+        void CreateAccount(Account account);
+
+        int GetAppNumber();
     }
 }

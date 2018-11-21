@@ -1,7 +1,9 @@
-﻿namespace Workflow.Data.Infrastructure
+﻿using System.Threading.Tasks;
+
+namespace Workflow.Data.Infrastructure
 {
     public interface IUnitOfWork
     {
-        void Commit();
+        Task<int> Commit();
     }
 }

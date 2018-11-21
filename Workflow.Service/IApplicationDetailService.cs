@@ -1,6 +1,7 @@
 ﻿namespace Workflow.Service
 {
-    public  class IApplicationDetailService
+    public interface IApplicationDetailService
     {
+        string GetAppNumber();
     }
 }

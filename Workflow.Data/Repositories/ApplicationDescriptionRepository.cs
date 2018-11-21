@@ -7,10 +7,5 @@ namespace Workflow.Data.Repositories
     {
         public ApplicationDescriptionRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
-
-        //public ApplicationDescription GetAppDescription(string appCode)
-        //{
-        //  return  _context.ApplicationDescription.SingleOrDefault(a => a.AppCode == appCode);
-        //}
     }
 }
