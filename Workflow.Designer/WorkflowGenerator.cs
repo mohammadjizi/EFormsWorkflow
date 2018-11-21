@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WorkflowDesigner
+namespace Workflow.Designer
 {
     public class WorkflowGenerator
     {

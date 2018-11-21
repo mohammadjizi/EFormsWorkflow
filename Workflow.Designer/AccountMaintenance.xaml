@@ -1,7 +1,7 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="WorkflowDesigner.AccountMaintenance" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowDesigner.AccountMaintenance_1"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Workflow.Designer.AccountMaintenance" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="Workflow.Designer.AccountMaintenance_1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:local="clr-namespace:WorkflowDesigner"
+ xmlns:local="clr-namespace:Workflow.Designer"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
@@ -34,7 +34,7 @@
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
-      <AssemblyReference>WorkflowDesigner</AssemblyReference>
+      <AssemblyReference>Workflow.Designer</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <StateMachine sap2010:WorkflowViewState.IdRef="StateMachine_1">
@@ -365,7 +365,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowDesigner.AccountMaintenance_1" sap:VirtualizedContainerService.HintSize="884,777.6" />
+      <sap2010:ViewStateData Id="Workflow.Designer.AccountMaintenance_1" sap:VirtualizedContainerService.HintSize="884,777.6" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

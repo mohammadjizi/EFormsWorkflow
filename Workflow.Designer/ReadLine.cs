@@ -1,6 +1,6 @@
 ﻿using System.Activities;
 
-namespace WorkflowDesigner
+namespace Workflow.Designer
 {
 
     internal sealed class ReadLine : NativeActivity<string>

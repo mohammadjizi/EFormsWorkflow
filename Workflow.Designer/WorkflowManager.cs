@@ -4,7 +4,7 @@ using System.Activities.DurableInstancing;
 using System.Configuration;
 using System.Threading;
 
-namespace WorkflowDesigner
+namespace Workflow.Designer
 {
     internal class WorkflowManager
     {

@@ -34,9 +34,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Workflow.Data\Workflow.Data.csproj" />
+    <ProjectReference Include="..\Workflow.Designer\Workflow.Designer.csproj" />
     <ProjectReference Include="..\Workflow.Model\Workflow.Model.csproj" />
     <ProjectReference Include="..\Workflow.Service\Workflow.Service.csproj" />
-    <ProjectReference Include="..\WorkflowDesigner\WorkflowDesigner.csproj" />
   </ItemGroup>
 
 </Project>

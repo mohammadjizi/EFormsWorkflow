@@ -1,4 +1,4 @@
-﻿namespace WorkflowDesigner
+﻿namespace Workflow.Designer
 {
     public enum WFStatus
     {
