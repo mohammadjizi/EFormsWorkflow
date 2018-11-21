@@ -1,0 +1,85 @@
+﻿@model Workflow.Web.ViewModels.AccountMaintenanceViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>@Model.AppType</h4>
+@*<hr />*@
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <partial model="new @Workflow.Models.ApplicationDetail() {DateCreated= @Model.DateCreated, RequestedBy= @Model.RequestedBy}" name="./ApplicationDetail/Create" />
+            <div id="appCustomer" class="js-search">
+                <partial model="new @Workflow.Models.ApplicationCustomer(){}" name="./ApplicationCustomer/Create" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerAddress" class="control-label"></label>
+                <input asp-for="CustomerAddress" class="form-control" />
+                <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerType" class="control-label"></label>
+                <input asp-for="CustomerType" class="form-control" />
+                <span asp-validation-for="CustomerType" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" asp-for="CustomerAccount"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+@section scripts
+{ 
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-search").on("click",
+                ".js-search-customer",
+                function() {
+                    var accNumber = $("#searchAccount").val();
+
+                    $.validator.unobtrusive.parse(accNumber);
+                   
+                    //$(".js-search-customer").attr("href", $(".js-search-customer").attr("href") + "?accountNumber=" + $("searchAccount").val());
+                    //$.post("/ApplicationCustomer/Create/", { AccountNumber: accNumber }
+                    //    //contentType: 'application/html;charset=utf-8',
+                    //    //type: 'POST',
+                    //    //dataType: 'html'
+                    //).done(function(result) {
+                    //    alert(result);
+                    //    $("#appCustomer").html(result);
+                    //}).fail(function(xhr, status) {
+                    //    alert('something failed!');
+                    //});
+
+                 
+
+                    $.ajax("/ApplicationCustomer/Search/?accNumber=" + accNumber,
+                            {
+                                type: 'GET'
+                        }).done(function (result) {
+                            $("#CustomerAccount").val(accNumber);
+                            $("#appCustomer").html(result);
+                        })
+                        .fail(function (xhr, status) {
+                            alert('something failed!');
+                        })
+                });
+        });
+
+
+    </script>
+}
+

@@ -5,7 +5,13 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDesigner", "WorkflowDesigner\WorkflowDesigner.csproj", "{BE057E1D-B7DE-4F44-9C08-4781007BCF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowForms", "WorkflowForms\WorkflowForms.csproj", "{20351032-F309-4C09-A889-D0F3B663D820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflow.Web", "Workflow.Web\Workflow.Web.csproj", "{20351032-F309-4C09-A889-D0F3B663D820}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflow.Model", "Workflow.Model\Workflow.Model.csproj", "{77FBF68A-74D7-42CA-9895-3ABB037B1EF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflow.Data", "Workflow.Data\Workflow.Data.csproj", "{3828B7D3-D5AD-4001-8F45-8B80C737DB57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflow.Service", "Workflow.Service\Workflow.Service.csproj", "{BF94C4EF-BE31-45B7-AEEB-179CF510F8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{20351032-F309-4C09-A889-D0F3B663D820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20351032-F309-4C09-A889-D0F3B663D820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20351032-F309-4C09-A889-D0F3B663D820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FBF68A-74D7-42CA-9895-3ABB037B1EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FBF68A-74D7-42CA-9895-3ABB037B1EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FBF68A-74D7-42CA-9895-3ABB037B1EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FBF68A-74D7-42CA-9895-3ABB037B1EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3828B7D3-D5AD-4001-8F45-8B80C737DB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3828B7D3-D5AD-4001-8F45-8B80C737DB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3828B7D3-D5AD-4001-8F45-8B80C737DB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3828B7D3-D5AD-4001-8F45-8B80C737DB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF94C4EF-BE31-45B7-AEEB-179CF510F8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF94C4EF-BE31-45B7-AEEB-179CF510F8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF94C4EF-BE31-45B7-AEEB-179CF510F8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF94C4EF-BE31-45B7-AEEB-179CF510F8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
