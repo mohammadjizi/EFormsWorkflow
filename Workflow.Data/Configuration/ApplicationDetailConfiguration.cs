@@ -11,7 +11,7 @@ namespace Workflow.Data.Configuration
             builder.HasKey(c => c.Id);
             builder.Property(c => c.AppNumber).IsRequired();
             builder.Property(c => c.DateCreated).IsRequired();
-            builder.Property(c => c.AppDescription).IsRequired();
+            //builder.Property(c => c.AppDescription).IsRequired();
             builder.Property(c => c.RequestedBy).IsRequired();
         }
     }

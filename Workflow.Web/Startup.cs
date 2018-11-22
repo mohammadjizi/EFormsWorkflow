@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Autofac.Integration.Mvc;
+using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using System;
 using System.Web.Mvc;
 using Workflow.Data.Infrastructure;
 using Workflow.Data.Repositories;
+using Workflow.Forms.Repositories;
 using Workflow.Service;
 using Workflow.Web.Data;
 
@@ -27,10 +28,10 @@ namespace WorkflowForms
 
         public IConfiguration Configuration { get; }
 
-        //public IContainer ApplicationContainer { get; private set; }
+        public IContainer ApplicationContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -48,44 +49,38 @@ namespace WorkflowForms
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddDbContext<WorkflowEntities>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddAutoMapper();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             Workflow.Web.Mappings.AutoMapperConfiguration.Configure();
 
-            //var builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             //// If you want to set up a controller for, say, property injection
             //// you can override the controller registration after populating services.
-            //builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().PropertiesAutowired();
 
 
             //// When you do service population, it will include your controller
             //// types automatically.
-            //builder.Populate(services);
+            builder.Populate(services);
 
+            builder.RegisterType<Disposable>().As<IDisposable>();
+            builder.RegisterType<DbFactory>().As<IDbFactory>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<AccountRepository>().As<IAccountRepository>();
+            builder.RegisterType<ApplicationDescriptionRepository>().As<IApplicationDescriptionRepository>();
+            builder.RegisterType<ApplicationDetailRepository>().As<IApplicationDetailRepository>();
+            builder.RegisterType<EquationCustomerRepository>().As<IEquationCustomerRepository>();
+            builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<ApplicationDescriptionService>().As<IApplicationDescriptionService>();
+            builder.RegisterType<ApplicationDetailService>().As<IApplicationDetailService>();
+            builder.RegisterType<EquationCustomerService>().As<IEquationCustomerService>();
 
-            //this.ApplicationContainer = builder.Build();
-            //return new AutofacServiceProvider(this.ApplicationContainer);
-
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-            builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
-
-            // Repositories
-            builder.RegisterAssemblyTypes(typeof(AccountRepository).Assembly)
-                .Where(t => t.Name.EndsWith("Repository"))
-                .AsImplementedInterfaces().InstancePerRequest();
-            // Services
-            builder.RegisterAssemblyTypes(typeof(AccountService).Assembly)
-                .Where(t => t.Name.EndsWith("Service"))
-                .AsImplementedInterfaces().InstancePerRequest();
-
-            IContainer container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
+            this.ApplicationContainer = builder.Build();
+            return new AutofacServiceProvider(this.ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

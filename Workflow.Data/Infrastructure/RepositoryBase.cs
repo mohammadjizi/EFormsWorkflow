@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Workflow.Data.Infrastructure
         #region Properties
         private WorkflowEntities dataContext;
 
+        private IConfiguration _configuration;
+
         //private readonly IDbSet<T> dbSet;
         private readonly DbSet<T> dbSet;
 
@@ -23,13 +26,14 @@ namespace Workflow.Data.Infrastructure
 
         protected WorkflowEntities DbContext
         {
-            get { return dataContext ?? (dataContext = DbFactory.Init()); }
+            get { return dataContext ?? (dataContext = DbFactory.Init(_configuration)); }
         }
         #endregion
 
-        protected RepositoryBase(IDbFactory dbFactory)
+        protected RepositoryBase(IDbFactory dbFactory, IConfiguration configuration)
         {
             DbFactory = dbFactory;
+            _configuration = configuration;
             dbSet = DbContext.Set<T>();
         }
 

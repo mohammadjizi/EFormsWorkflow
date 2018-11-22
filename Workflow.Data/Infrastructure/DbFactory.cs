@@ -1,12 +1,14 @@
-﻿namespace Workflow.Data.Infrastructure
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Workflow.Data.Infrastructure
 {
     public class DbFactory : Disposable, IDbFactory
     {
         WorkflowEntities dbContext;
 
-        public WorkflowEntities Init()
+        public WorkflowEntities Init(IConfiguration configuration)
         {
-            return dbContext ?? (dbContext = new WorkflowEntities());
+            return dbContext ?? (dbContext = new WorkflowEntities(configuration));
         }
 
         protected override void DisposeCore()

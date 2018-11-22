@@ -8,7 +8,7 @@ namespace Workflow.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<App> builder)
         {
-            builder.Property(c => c.AppDetail).IsRequired();
+            //builder.Property(c => c.AppDetail).IsRequired();
         }
     }
 }

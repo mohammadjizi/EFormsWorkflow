@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using Workflow.Data.Configuration;
 using Workflow.Models;
@@ -7,7 +8,12 @@ namespace Workflow.Data
 {
     public class WorkflowEntities: DbContext
     {
-        //public WorkflowEntities() : base("WorkflowEntities") { }
+        private readonly IConfiguration _configuration;
+
+        public WorkflowEntities(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public DbSet<Account> Account { get; set; }
         public DbSet<ApplicationCustomer> ApplicationCustomer { get; set; }
@@ -23,11 +29,19 @@ namespace Workflow.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccountConfiguration());
-            modelBuilder.ApplyConfiguration(new AppConfiguration());
+            //modelBuilder.ApplyConfiguration(new AppConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationCustomerConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationDescriptionConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationDetailConfiguration());
             modelBuilder.ApplyConfiguration(new EquationCustomerConfiguration());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            }
         }
     }
 }

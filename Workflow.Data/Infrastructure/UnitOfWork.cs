@@ -1,25 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace Workflow.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDbFactory dbFactory;
+        private readonly IDbFactory _dbFactory;
         private WorkflowEntities dbContext;
+        private IConfiguration _configuration;
 
-        public UnitOfWork(IDbFactory dbFactory)
+        public UnitOfWork(IDbFactory dbFactory, IConfiguration configuration)
         {
-            this.dbFactory = dbFactory;
+            _dbFactory = dbFactory;
+            _configuration = configuration;
         }
 
         public WorkflowEntities DbContext
         {
-            get { return dbContext ?? (dbContext = dbFactory.Init()); }
+            get { return dbContext ?? (dbContext = _dbFactory.Init(_configuration)); }
         }
 
         public Task<int> Commit()
         {
-         return dbContext.Commit();
+         return DbContext.Commit();
         }
 
         

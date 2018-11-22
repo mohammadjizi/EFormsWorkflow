@@ -1,6 +1,7 @@
 ﻿namespace Workflow.Models
 {
-    public class Account : App
+    //public class Account : App
+    public class Account
     {
         public int Id { get; set; }
 
@@ -13,6 +14,10 @@
         public string IBANNumber { get; set; }
 
         public string CurrencyCode { get; set; }
+
+        public ApplicationCustomer AppCustomer { get; set; }
+
+        public ApplicationDetail AppDetail { get; set; }
 
     }
 }

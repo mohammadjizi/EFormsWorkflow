@@ -5,6 +5,5 @@ namespace Workflow.Data.Repositories
 {
     public interface IApplicationDescriptionRepository : IRepository<ApplicationDescription>
     {
-        //ApplicationDescription GetAppDescription(string appCode);
     }
 }

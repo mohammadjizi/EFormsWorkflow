@@ -35,6 +35,7 @@ namespace WorkflowForms.Controllers
             _applicationDescriptionService = applicationDescriptionService;
             _applicationDetailService = applicationDetailService;
             _equationCustomerService = equationCustomerService;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
